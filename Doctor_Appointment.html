@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>PureHeal Hospitals</title>
+
+<style>
+body{
+    font-family: Arial;
+    margin:0;
+    padding:0;
+    background:#d9dde3;
+}
+
+#welcomePage, #mainPage, #bookingPage{
+    display:none;
+}
+
+#welcomePage{
+    text-align:center;
+    padding:150px;
+    background:white;
+}
+
+#welcomePage h1{
+    color:#2f6fd6;
+    font-size:40px;
+}
+
+header{
+    background:#2f6fd6;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+nav{
+    background:#1e4ea8;
+    text-align:center;
+    padding:10px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:20px;
+    font-weight:bold;
+}
+
+.container{
+    width:80%;
+    margin:auto;
+    padding:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
+
+table, th, td{
+    border:1px solid #333;
+}
+
+th, td{
+    padding:10px;
+    text-align:center;
+}
+
+form{
+    background:#eeeeee;
+    padding:20px;
+    border-radius:5px;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:8px;
+    margin:8px 0;
+}
+
+button{
+    padding:8px 15px;
+    background:#2f6fd6;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1e4ea8;
+}
+
+footer{
+    background:#2f6fd6;
+    color:white;
+    text-align:center;
+    padding:10px;
+    margin-top:20px;
+}
+
+h2{
+    color:#2f6fd6;
+}
+</style>
+
+<script>
+
+var doctors = {
+    "Dr. Ramesh":"Cardiologist",
+    "Dr. Priya":"Dermatologist",
+    "Dr. Arjun":"General Physician",
+    "Dr. Sneha":"Pediatrician",
+    "Dr. Karthik":"Orthopedic Specialist",
+    "Dr. Meena":"Gynecologist",
+    "Dr. Rahul":"Neurologist"
+};
+
+function showWelcome(){
+    document.getElementById("welcomePage").style.display="block";
+}
+
+function showMainPage(){
+    document.getElementById("welcomePage").style.display="none";
+    document.getElementById("mainPage").style.display="block";
+}
+
+function showSpeciality(){
+    var doctor = document.getElementById("doctor").value;
+    document.getElementById("doctorInfo").innerHTML =
+        "Speciality: " + doctors[doctor];
+}
+
+function bookAppointment(){
+
+    var name = document.getElementById("name").value;
+    var age = document.getElementById("age").value;
+    var phone = document.getElementById("phone").value;
+    var address = document.getElementById("address").value;
+    var doctor = document.getElementById("doctor").value;
+    var date = document.getElementById("date").value;
+
+    if(name=="" || age=="" || phone=="" || address=="" || date==""){
+        alert("Please fill all fields!");
+        return false;
+    }
+
+    document.getElementById("mainPage").style.display="none";
+    document.getElementById("bookingPage").style.display="block";
+
+    document.getElementById("bName").innerHTML = name;
+    document.getElementById("bAge").innerHTML = age;
+    document.getElementById("bPhone").innerHTML = phone;
+    document.getElementById("bAddress").innerHTML = address;
+    document.getElementById("bDoctor").innerHTML = doctor;
+    document.getElementById("bSpeciality").innerHTML = doctors[doctor];
+    document.getElementById("bDate").innerHTML = date;
+
+    return false;
+}
+
+</script>
+</head>
+
+<body onload="showWelcome()">
+
+<div id="welcomePage">
+    <h1>Welcome to PureHeal Hospitals</h1>
+    <button onclick="showMainPage()">Next</button>
+</div>
+
+<div id="mainPage">
+
+<header>
+    <h1>PureHeal Hospitals</h1>
+    <p>Book Your Appointment Online</p>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#appointment">Book Appointment</a>
+</nav>
+
+<div class="container">
+
+<h2>Available Doctors</h2>
+
+<table>
+<tr>
+<th>Name</th>
+<th>Specialization</th>
+<th>Available Days</th>
+</tr>
+<tr><td>Dr. Ramesh</td><td>Cardiologist</td><td>Mon - Wed</td></tr>
+<tr><td>Dr. Priya</td><td>Dermatologist</td><td>Tue - Fri</td></tr>
+<tr><td>Dr. Arjun</td><td>General Physician</td><td>Mon - Sat</td></tr>
+<tr><td>Dr. Sneha</td><td>Pediatrician</td><td>Mon - Fri</td></tr>
+<tr><td>Dr. Karthik</td><td>Orthopedic</td><td>Wed - Sat</td></tr>
+<tr><td>Dr. Meena</td><td>Gynecologist</td><td>Tue - Sat</td></tr>
+<tr><td>Dr. Rahul</td><td>Neurologist</td><td>Mon - Thu</td></tr>
+</table>
+
+<h2 id="appointment">Book Appointment</h2>
+
+<form onsubmit="return bookAppointment()">
+
+<label>Patient Name:</label>
+<input type="text" id="name">
+
+<label>Age:</label>
+<input type="number" id="age">
+
+<label>Phone Number:</label>
+<input type="number" id="phone">
+
+<label>Address:</label>
+<textarea id="address"></textarea>
+
+<label>Select Doctor:</label>
+<select id="doctor" onchange="showSpeciality()">
+<option>Dr. Ramesh</option>
+<option>Dr. Priya</option>
+<option>Dr. Arjun</option>
+<option>Dr. Sneha</option>
+<option>Dr. Karthik</option>
+<option>Dr. Meena</option>
+<option>Dr. Rahul</option>
+</select>
+
+<p id="doctorInfo"></p>
+
+<label>Appointment Date:</label>
+<input type="date" id="date">
+
+<button type="submit">Submit</button>
+
+</form>
+
+</div>
+
+<footer>
+© 2026 PureHeal Hospitals | All Rights Reserved
+</footer>
+
+</div>
+
+<div id="bookingPage" class="container">
+
+<h2>Appointment Confirmed</h2>
+
+<p><b>Patient Name:</b> <span id="bName"></span></p>
+<p><b>Age:</b> <span id="bAge"></span></p>
+<p><b>Phone:</b> <span id="bPhone"></span></p>
+<p><b>Address:</b> <span id="bAddress"></span></p>
+<p><b>Doctor:</b> <span id="bDoctor"></span></p>
+<p><b>Speciality:</b> <span id="bSpeciality"></span></p>
+<p><b>Appointment Date:</b> <span id="bDate"></span></p>
+
+<br>
+<button onclick="location.reload()">Book Another Appointment</button>
+
+</div>
+
+</body>
+</html>
